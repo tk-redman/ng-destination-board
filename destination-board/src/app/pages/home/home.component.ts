@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { HttpService } from '../../service/http.service'; 
 import { Member } from '../../models/member';
 import { environment } from 'src/environments/environment';
+import { EditDialogComponent } from '../../components/edit-dialog/edit-dialog.component'
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +17,11 @@ export class HomeComponent implements OnInit {
     params: new HttpParams(),
     responseType: 'json'
   };
-
+  public displayedColumns: string[] = ['name', 'status', 'comment', 'action'];
 
   constructor(
     public httprequest : HttpService,
-    //public httpclient : HttpClient
+    public dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
@@ -30,7 +32,6 @@ export class HomeComponent implements OnInit {
     var _params : HttpParams = new HttpParams();
     this.httpOptions.params = _params.append('id', environment.tenantName);
     this.httprequest.getRequest('/list', this.httpOptions).subscribe(result => {
-      console.log(result);
       for (var i = 0, len = result['body'].length; i < len; ++i) {
         this.memberList = result['body'];
       };
@@ -39,20 +40,32 @@ export class HomeComponent implements OnInit {
      }
   }
 
-  public updateMemberStatus(){
-    var _params : HttpParams = new HttpParams();
+  public updateMemberStatus(data:Member){
     var updateData = {
       id: environment.tenantName,
-      member: "",
-      comment: "",
-      status: ""
+      member: data.id,
+      comment: data.comment,
+      status: data.status
     }
-    this.httprequest.postRequest('/member', updateData, this.httpOptions).subscribe(result => {
+    this.httprequest.postRequest('/member', updateData).subscribe(result => {
       console.log(result);
+      this.ngOnInit()
      }),error => {
        console.log(error);
      }
   }
 
+  public onRowClicked(data){
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      width: '450px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        data = result;
+        this.updateMemberStatus(data);
+      }
+    });
 
+  }
 }

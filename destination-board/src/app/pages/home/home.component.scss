@@ -1,0 +1,62 @@
+//header
+.header-bar{
+    background-color: #05aaae;
+    color: #fff;
+}
+
+.title-text{
+    font-weight: bold;
+    padding: 10px;
+    font-size: 20px
+}
+
+//body
+
+.board-card{
+    width: 700px;
+    margin: 30px auto auto auto;
+}
+.members-table{
+    padding: 10px;
+    width: 100%;
+    margin:auto;
+}
+
+//table
+.status-col td{
+    text-align: center;
+}
+
+.comment-col{
+    width: 300px;
+}
+
+.button-col{
+    width: 60px;
+}
+
+.status-chip{
+    padding: 3px;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 60px;
+    text-align: center;
+    color: #fff;
+}
+
+.status-online{
+    background-color: #009900;
+}
+.status-offline{
+    background-color: #990000;
+}
+
+.edit-button{
+    border-color: #eee;
+    background-color: #eee;
+    border-radius: 3px;
+    text-decoration: none;
+    border: solid #eee;
+    width: 40px;
+    padding: 0;
+}

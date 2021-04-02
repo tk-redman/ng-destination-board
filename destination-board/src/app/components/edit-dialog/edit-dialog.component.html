@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{ dialogData.name }}さんのステータス変更</h1>
+<div class="dialog-form">
+    <div mat-dialog-content>
+    <mat-form-field class="dialog-form-field">
+        <p class="dialog-field status-field">
+            <mat-slide-toggle (change)="changeStatus($event)" checked="dialogData.status">
+                <div class="status-chip status-offline" *ngIf="dialogData.status == 0">退勤</div>
+                <div class="status-chip status-online" *ngIf="dialogData.status == 1">出勤中</div>
+            </mat-slide-toggle>
+        </p>
+        <p class="dialog-field comment-field">
+            <mat-label>コメント</mat-label>
+            <input matInput (change)="changeComment($event)" value="{{dialogData.comment}}">
+        </p>
+    </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="dialog-action">
+    <button mat-button (click)="cancelDialog()">キャンセル</button>
+    <button mat-button [mat-dialog-close]="dialogData" cdkFocusInitial>更新</button>
+    </div>
+</div>

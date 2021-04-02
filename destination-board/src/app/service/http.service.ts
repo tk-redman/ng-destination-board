@@ -17,8 +17,8 @@ private Url = environment.apiUrl;
     );
   }
 
-  postRequest(resourceUrl:string, body:any, options: any){
-    return this.http.post(this.Url + resourceUrl, body, options).pipe(
+  postRequest(resourceUrl:string, body:any){
+    return this.http.post(this.Url + resourceUrl, body).pipe(
       tap(res => res)
     );
   }
